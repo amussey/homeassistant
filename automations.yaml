@@ -1,0 +1,533 @@
+- id: '1729289370350'
+  alias: Toggle Office Light
+  description: ''
+  triggers:
+  - device_id: 6c2453c7401d2e7121ad0503beabf513
+    domain: homekit_controller
+    type: button1
+    subtype: single_press
+    metadata: {}
+    trigger: device
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: device
+        type: is_off
+        device_id: febb0989b95d5c520999e727ea1d620d
+        entity_id: 557bba6d560a17b673ec739942e9b3b4
+        domain: switch
+      - condition: device
+        type: is_off
+        device_id: e08c23800f294655d9c07b01eca199cf
+        entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+        domain: switch
+      sequence:
+      - type: turn_off
+        device_id: febb0989b95d5c520999e727ea1d620d
+        entity_id: 557bba6d560a17b673ec739942e9b3b4
+        domain: switch
+      - type: turn_on
+        device_id: e08c23800f294655d9c07b01eca199cf
+        entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+        domain: switch
+      alias: 'All Off: Turn Sun on'
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: device
+          type: is_on
+          device_id: e08c23800f294655d9c07b01eca199cf
+          entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+          domain: switch
+        - condition: device
+          type: is_off
+          device_id: febb0989b95d5c520999e727ea1d620d
+          entity_id: 557bba6d560a17b673ec739942e9b3b4
+          domain: switch
+      sequence:
+      - type: turn_on
+        device_id: febb0989b95d5c520999e727ea1d620d
+        entity_id: 557bba6d560a17b673ec739942e9b3b4
+        domain: switch
+      - type: turn_on
+        device_id: e08c23800f294655d9c07b01eca199cf
+        entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+        domain: switch
+      alias: 'Sun on: Turn Photo On'
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: febb0989b95d5c520999e727ea1d620d
+        entity_id: 557bba6d560a17b673ec739942e9b3b4
+        domain: switch
+      - condition: device
+        type: is_on
+        device_id: e08c23800f294655d9c07b01eca199cf
+        entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+        domain: switch
+      sequence:
+      - type: turn_on
+        device_id: febb0989b95d5c520999e727ea1d620d
+        entity_id: 557bba6d560a17b673ec739942e9b3b4
+        domain: switch
+      - type: turn_off
+        device_id: e08c23800f294655d9c07b01eca199cf
+        entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+        domain: switch
+      alias: Sun + Photo On => Turn Sun Off
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: febb0989b95d5c520999e727ea1d620d
+        entity_id: 557bba6d560a17b673ec739942e9b3b4
+        domain: switch
+      - condition: device
+        type: is_off
+        device_id: e08c23800f294655d9c07b01eca199cf
+        entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+        domain: switch
+      sequence:
+      - type: turn_off
+        device_id: febb0989b95d5c520999e727ea1d620d
+        entity_id: 557bba6d560a17b673ec739942e9b3b4
+        domain: switch
+      - type: turn_off
+        device_id: e08c23800f294655d9c07b01eca199cf
+        entity_id: d9bf3db21ae6874a72e21f3dc17789f3
+        domain: switch
+      alias: Photo On, Sun off => Turn all off
+  mode: single
+- id: '1729289405681'
+  alias: Roku Toggle
+  description: ''
+  triggers:
+  - device_id: 6c2453c7401d2e7121ad0503beabf513
+    domain: homekit_controller
+    type: button1
+    subtype: double_press
+    trigger: device
+  conditions: []
+  actions:
+  - type: toggle
+    device_id: fe438b1fbb7881a9e7487f5b41c2f9e4
+    entity_id: a8a8d01cb4bf701f81f1b3741c7281a1
+    domain: remote
+  - type: toggle
+    device_id: 98b8b664bb69196a9f0146beb1cfed9a
+    entity_id: 66467185793206bf12b5d7e81a86ec31
+    domain: light
+  mode: single
+- id: '1729289690066'
+  alias: Bedroom Light Toggle
+  description: ''
+  triggers:
+  - device_id: 7e92220eb1ed00a75ff88c03771d1aee
+    domain: homekit_controller
+    type: button1
+    subtype: single_press
+    metadata: {}
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data:
+      brightness_pct: 69
+    target:
+      entity_id:
+      - light.wiz_rgbww_tunable_0ea172
+  mode: single
+- id: '1729289712152'
+  alias: Bedroom Light Off
+  description: ''
+  triggers:
+  - device_id: 7e92220eb1ed00a75ff88c03771d1aee
+    domain: homekit_controller
+    type: button1
+    subtype: double_press
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.bedroom_bulb_1
+  mode: single
+- id: '1729289735438'
+  alias: Bedroom Light Dim
+  description: ''
+  triggers:
+  - device_id: 7e92220eb1ed00a75ff88c03771d1aee
+    domain: homekit_controller
+    type: button1
+    subtype: long_press
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_on
+    data:
+      brightness_pct: 20
+      color_temp_kelvin: 2699
+    target:
+      device_id: 92be1abfae365696f29cb97907e9a2d2
+  mode: single
+- id: '1736800584969'
+  alias: Turn on Vive
+  description: ''
+  triggers:
+  - device_id: e842d2f6bc42947813b4d53fe93980eb
+    domain: homekit_controller
+    type: button1
+    subtype: single_press
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 347168ceed3dd396e7780411b1b8a5e0
+    entity_id: 8d41ce126324209f807891ba58eab3ef
+    domain: switch
+  - type: turn_on
+    device_id: 5a89f51c9825793222d11ea3ec596687
+    entity_id: 3147f5329eb0874426b6cd5a6c3a1c43
+    domain: switch
+  mode: single
+- id: '1736800619325'
+  alias: Turn Vive Off
+  description: ''
+  triggers:
+  - device_id: e842d2f6bc42947813b4d53fe93980eb
+    domain: homekit_controller
+    type: button1
+    subtype: double_press
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 347168ceed3dd396e7780411b1b8a5e0
+    entity_id: 8d41ce126324209f807891ba58eab3ef
+    domain: switch
+  - type: turn_off
+    device_id: 5a89f51c9825793222d11ea3ec596687
+    entity_id: 3147f5329eb0874426b6cd5a6c3a1c43
+    domain: switch
+  mode: single
+- id: '1756879353528'
+  alias: Turn off the hoyse
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 552e7f8c317795f11ca094a6c11fc8b6
+    entity_id: dd2bf299feaf62c06ab53452f7416064
+    domain: light
+  - parallel:
+    - type: turn_off
+      device_id: 320c6abbf8b3745ff078881b10e52093
+      entity_id: 91858a1c3151b3b85bc8db6fdbb87109
+      domain: light
+    - type: turn_off
+      device_id: 023cf94b17938d2cc52fc58c71d11cd3
+      entity_id: 94f212d7e5a9d9e35572a1f7fb11e318
+      domain: light
+    - type: turn_off
+      device_id: 182e121432e2dcd655cb881a95c8a1ea
+      entity_id: f20a57cb21dc1db6870f386698fb9b00
+      domain: light
+    - type: turn_off
+      device_id: 086c58a9b02a3dc2ca1b6665fcfe02b7
+      entity_id: 3b18f64fe5ee16f5f0a4bf95229ab1ff
+      domain: light
+    - type: turn_off
+      device_id: 98133f03ecf87d834902fc71997b3dc3
+      entity_id: fe476ab3f27cd7951217095e77f87b0e
+      domain: light
+    - type: turn_off
+      device_id: ed7dc9bc4cdc69610677a303ca409df5
+      entity_id: 1b65fb577392016dd9c7e5595a7c5a09
+      domain: switch
+  mode: single
+- id: '1757504561148'
+  alias: Basement Switch Single Click
+  description: ''
+  triggers:
+  - device_id: 502f876f4b672699a2c32a302bb8c055
+    domain: homekit_controller
+    type: button1
+    subtype: single_press
+    trigger: device
+  conditions: []
+  actions:
+  - parallel:
+    - type: turn_on
+      device_id: fa47c9e98e3342f3c06f453221872a37
+      entity_id: 97e78b6079b27ec4b20f8c185072968e
+      domain: light
+      brightness_pct: 100
+    - type: turn_on
+      device_id: 726b039172346614e886cf804ca7cd35
+      entity_id: 70b4441d7e344ce9af84bf32ab09b9c5
+      domain: light
+      brightness_pct: 100
+  mode: single
+- id: '1757504785657'
+  alias: Basement Double Click
+  description: ''
+  triggers:
+  - device_id: 502f876f4b672699a2c32a302bb8c055
+    domain: homekit_controller
+    type: button1
+    subtype: double_press
+    trigger: device
+  conditions: []
+  actions:
+  - parallel:
+    - type: turn_off
+      device_id: 726b039172346614e886cf804ca7cd35
+      entity_id: 70b4441d7e344ce9af84bf32ab09b9c5
+      domain: light
+  mode: single
+- id: '1758148575876'
+  alias: Kitchen On
+  description: ''
+  triggers:
+  - device_id: 1a5e1d3ecb61bd6cad0b38b10141420c
+    domain: homekit_controller
+    type: button1
+    subtype: single_press
+    metadata: {}
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: bd4102f930022bca4b9ef2215e8fd480
+    entity_id: 390868b9e7eb91522862c83b4c2efb0d
+    domain: light
+    brightness_pct: 100
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 100
+    target:
+      entity_id: light.dining_room
+  - type: turn_off
+    device_id: ced6068f4c1d4aa1eeb68ac021a68415
+    entity_id: 76abfed51d8b0d121faf820ebf913c24
+    domain: switch
+  mode: single
+- id: '1758160658505'
+  alias: Kitchen & Sunroom Off
+  description: ''
+  triggers:
+  - device_id: 1a5e1d3ecb61bd6cad0b38b10141420c
+    domain: homekit_controller
+    type: button1
+    subtype: double_press
+    trigger: device
+  conditions: []
+  actions:
+  - parallel:
+    - type: turn_off
+      device_id: bd4102f930022bca4b9ef2215e8fd480
+      entity_id: 390868b9e7eb91522862c83b4c2efb0d
+      domain: light
+    - type: turn_off
+      device_id: 98133f03ecf87d834902fc71997b3dc3
+      entity_id: fe476ab3f27cd7951217095e77f87b0e
+      domain: light
+    - type: turn_off
+      device_id: 182e121432e2dcd655cb881a95c8a1ea
+      entity_id: f20a57cb21dc1db6870f386698fb9b00
+      domain: light
+    - type: turn_off
+      device_id: 086c58a9b02a3dc2ca1b6665fcfe02b7
+      entity_id: 3b18f64fe5ee16f5f0a4bf95229ab1ff
+      domain: light
+    - type: turn_on
+      device_id: ced6068f4c1d4aa1eeb68ac021a68415
+      entity_id: 76abfed51d8b0d121faf820ebf913c24
+      domain: switch
+    - type: turn_off
+      device_id: a2f3433131fc49c7ce610f46767d297d
+      entity_id: a1645f1f775eacc1a03b7754e34922f0
+      domain: switch
+    - action: light.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: light.dining_room
+  mode: single
+- id: '1772550757364'
+  alias: Switch KVM when switching to Mac
+  description: ''
+  triggers:
+  - device_id: 2961f226debb287cebcfe1d8d6a97041
+    domain: button
+    entity_id: 7dd8b19536ff7028979207c6da427a66
+    type: pressed
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: sensor.kvm_switch_status
+    state: PC
+  actions:
+  - action: switch.toggle
+    metadata: {}
+    data: {}
+    target:
+      device_id:
+      - c145bb8a1f05100e1d7dea3d3f61e48c
+  mode: single
+- id: '1772557335082'
+  alias: KVM Button Switches Everything To Mac
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: c145bb8a1f05100e1d7dea3d3f61e48c
+    entity_id: 2841dda58d494710d9cca6b1807d2d50
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: sensor.kvm_switch_status
+    state: PC
+  actions:
+  - action: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.ajama_ryzen_custom
+  mode: single
+- id: '1772557534689'
+  alias: KVM Button Switches Everything To PC
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: c145bb8a1f05100e1d7dea3d3f61e48c
+    entity_id: 2841dda58d494710d9cca6b1807d2d50
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: sensor.kvm_switch_status
+    state: Mac
+  actions:
+  - action: rest_command.switch_dell_monitor_to_pc
+    metadata: {}
+    data: {}
+  - action: rest_command.switch_lg_monitor_to_pc
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1781099178064'
+  alias: Mouse Jiggler - Random Weekday Schedule
+  description: ''
+  triggers:
+  - at: 08:00:00
+    id: turn_on
+    trigger: time
+  - at: '17:30:00'
+    id: turn_off
+    trigger: time
+  conditions:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  actions:
+  - delay:
+      minutes: '{{ range(0, 31) | random }}'
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: turn_on
+      sequence:
+      - action: switch.turn_on
+        target:
+          entity_id: switch.logitech_m510_jiggler_active
+    - conditions:
+      - condition: trigger
+        id: turn_off
+      sequence:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.logitech_m510_jiggler_active
+  mode: single
+- id: '1781610838764'
+  alias: Kitchen Lights Morning/Evening Schedule
+  description: ''
+  triggers:
+  - at: 07:00:00
+    id: turn_on
+    trigger: time
+  - at: '17:00:00'
+    id: turn_on
+    trigger: time
+  - at: '22:00:00'
+    id: turn_off
+    trigger: time
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: turn_on
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        target:
+          entity_id:
+          - light.kitchen_table
+          - light.wiz_rgbww_tunable_50bb72
+          - light.sink
+        data:
+          color_temp_kelvin: 2831
+          brightness_pct: 100
+    - conditions:
+      - condition: trigger
+        id: turn_off
+      sequence:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.logitech_m510_jiggler_active
+      - action: light.turn_off
+        metadata: {}
+        target:
+          entity_id:
+          - light.kitchen_table
+          - light.wiz_rgbww_tunable_50bb72
+          - light.sink
+  mode: single
+- id: '1781639241228'
+  alias: Meeting LED Sync
+  description: Turns the Meeting LED (ESP-12F) on during scheduled work meetings.
+  triggers:
+  - event: start
+    entity_id: calendar.andrew_mussey_s_smarterdx_calendar
+    id: meeting-start
+    trigger: calendar
+  - event: end
+    entity_id: calendar.andrew_mussey_s_smarterdx_calendar
+    id: meeting-end
+    trigger: calendar
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: meeting-start
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id: light.esp_8dev2_meeting_status_led
+    - conditions:
+      - condition: trigger
+        id: meeting-end
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id: light.esp_8dev2_meeting_status_led
+  mode: queued

@@ -1,0 +1,13 @@
+# rest_commands.yaml
+switch_dell_monitor_to_mac:
+  url: "http://andrews-mbp-2.localdomain:9000/hooks/dell-hdmi-mac"
+  method: GET # Or GET, depending on what your local server expects
+  
+
+switch_lg_monitor_to_pc:
+  url: "http://andrews-mbp-2.localdomain:9000/hooks/lg-displayport-pc"
+  method: GET
+  
+switch_dell_monitor_to_pc:
+  url: "http://andrews-mbp-2.localdomain:9000/hooks/dell-displayport-pc"
+  method: GET

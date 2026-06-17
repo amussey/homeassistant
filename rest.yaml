@@ -1,0 +1,12 @@
+# rest.yaml
+- resource: "http://andrews-mbp-2.localdomain:9000/hooks/usb3-kvm"
+  scan_interval: 10
+  sensor:
+    - name: "KVM Switch Status"
+      unique_id: "kvm_switch_active_host"
+      # If your webhook returns plain text (e.g., just "macbook" or "desktop"), use this:
+      value_template: "{{ value }}"
+      
+      # Alternatively, if your webhook returns JSON like {"host": "macbook"}, 
+      # comment out the line above and use this instead:
+      # value_template: "{{ value_json.host }}"
