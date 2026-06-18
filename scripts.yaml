@@ -1,0 +1,39 @@
+# scripts.yaml
+activate_mac_workstation:
+  alias: "Switch Everything to Mac"
+  sequence:
+    # 1. First, check if the KVM is currently on the PC
+    - condition: state
+      entity_id: sensor.kvm_switch_status
+      state: "PC"
+
+    # 2. If the condition passes, flip the USB switch
+    - action: switch.turn_on
+      target:
+        entity_id: switch.usb3_kvm_usb_switch
+
+    # 3. Then run your REST commands
+    - action: button.press
+      target:
+        entity_id: button.ajama_ryzen_custom
+  icon: mdi:desktop-tower-monitor
+  
+  
+activate_pc_workstation:
+  alias: "Switch Everything to PC"
+  sequence:
+    # 1. First, check if the KVM is currently on the PC
+    - condition: state
+      entity_id: sensor.kvm_switch_status
+      state: "Mac"
+
+    # 2. If the condition passes, flip the USB switch
+    - action: switch.turn_on
+      target:
+        entity_id: switch.usb3_kvm_usb_switch
+
+    # 3. Then run your REST commands
+    - action: rest_command.switch_lg_monitor_to_pc
+    - action: rest_command.switch_dell_monitor_to_pc
+  icon: mdi:desktop-tower-monitor
+  
