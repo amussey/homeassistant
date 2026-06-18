@@ -422,15 +422,23 @@
     data: {}
   mode: single
 - id: '1781099178064'
-  alias: Mouse Jiggler - Random Weekday Schedule
+  alias: Mouse Jiggler - Smart OOO Schedule
   description: ''
   triggers:
-  - at: 08:00:00
-    id: turn_on
-    trigger: time
-  - at: '17:30:00'
-    id: turn_off
-    trigger: time
+  - trigger: time
+    at: 08:00:00
+    id: morning_start
+  - trigger: time
+    at: '17:30:00'
+    id: turn_off_events
+  - trigger: state
+    entity_id: calendar.andrew_mussey_s_smarterdx_ooo_calendar
+    to: 'on'
+    id: turn_off_events
+  - trigger: state
+    entity_id: calendar.andrew_mussey_s_smarterdx_ooo_calendar
+    to: 'off'
+    id: ooo_end
   conditions:
   - condition: time
     weekday:
@@ -440,24 +448,37 @@
     - thu
     - fri
   actions:
-  - delay:
-      minutes: '{{ range(0, 31) | random }}'
   - choose:
     - conditions:
       - condition: trigger
-        id: turn_on
+        id: morning_start
+      sequence:
+      - delay:
+          minutes: '{{ range(0, 31) | random }}'
+      - condition: state
+        entity_id: calendar.andrew_mussey_s_smarterdx_ooo_calendar
+        state: 'off'
+      - action: switch.turn_on
+        target:
+          entity_id: switch.logitech_m510_jiggler_active
+    - conditions:
+      - condition: trigger
+        id: ooo_end
+      - condition: time
+        after: 08:00:00
+        before: '17:30:00'
       sequence:
       - action: switch.turn_on
         target:
           entity_id: switch.logitech_m510_jiggler_active
     - conditions:
       - condition: trigger
-        id: turn_off
+        id: turn_off_events
       sequence:
       - action: switch.turn_off
         target:
           entity_id: switch.logitech_m510_jiggler_active
-  mode: single
+  mode: restart
 - id: '1781610838764'
   alias: Kitchen Lights Morning/Evening Schedule
   description: ''
